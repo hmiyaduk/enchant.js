@@ -1376,8 +1376,8 @@ if (enchant.gl !== undefined) {
                 return arraysForShader;
             },
             _render: function(detectTouch) {
-                var game = enchant.Game.instance;
-                var scene = game.currentScene3D;
+                var core = enchant.Core.instance;
+                var scene = core.currentScene3D;
                 var l = scene.directionalLight;
                 var detect = (detectTouch === 'detect') ? 1.0 : 0.0;
                 mat4.multiply(scene._camera.mat, this.tmpMat, this.uMVMatrix);

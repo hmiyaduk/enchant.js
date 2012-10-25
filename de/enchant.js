@@ -552,7 +552,7 @@ enchant.Event.INPUT_START = 'inputstart';
 
 /**
  * Ereignis, welchses auftritt wenn eine Knopfeingabe verändert wird.
- * Objekt des Auftretens: enchant.Core, enchant.Scen}
+ * Objekt des Auftretens: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.INPUT_CHANGE = 'inputchange';
@@ -1288,8 +1288,8 @@ enchant.EventTarget = enchant.Class.create({
  * enchant.Core is moved to enchant.Core from v0.6
  * @type {*}
  */
-enchant.Game = enchant.Core;
 
+enchant.Game = enchant.Core;
 /**
  * @scope enchant.Node.prototype
  */
@@ -1698,7 +1698,9 @@ enchant.Sprite = enchant.Class.create(enchant.Entity, {
      * @example
      *   var bear = new Sprite(32, 32);
      *   bear.image = core.assets['chara1.gif'];
-     *   
+     *
+     * @param {Number} [width] Sprite width.g
+     * @param {Number} [height] Sprite height.
      * @constructs
      * @extends enchant.Entity
      */

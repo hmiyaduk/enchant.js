@@ -1571,9 +1571,9 @@ enchant.gl = {};
 
             if (this.mesh !== null) {
                 if (this.program !== null) {
-                    enchant.Game.instance.GL.setProgram(this.program);
+                    enchant.Core.instance.GL.setProgram(this.program);
                     this._render(detectTouch);
-                    enchant.Game.instance.GL.setDefaultProgram();
+                    enchant.Core.instance.GL.setDefaultProgram();
                 } else {
                     this._render(detectTouch);
                 }

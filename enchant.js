@@ -425,21 +425,21 @@ enchant.Event = enchant.Class.create({
 enchant.Event.LOAD = 'load';
 
 /**
- * Events occurring during core loading.
+ * Events which are occurring during core loading.
  * Dispatched each time preloaded image is loaded. Issued object: enchant.Core
  * @type {String}
  */
 enchant.Event.PROGRESS = 'progress';
 
 /**
- * Events occurring when a new frame is beeing processed.
+ * An event which is occurring when a new frame is beeing processed.
  * Issued object: enchant.Core, enchant.Node
  * @type {String}
  */
 enchant.Event.ENTER_FRAME = 'enterframe';
 
 /**
- * Events occurring during frame end.
+ * An event which is occurring when the frame processing is about to end.
  * Issued object: enchant.Core
  * @type {String}
  */
@@ -531,105 +531,105 @@ enchant.Event.TOUCH_END = 'touchend';
 enchant.Event.RENDER = 'render';
 
 /**
- * Event occurring when a button is pushed.
- * Issued object: enchant.Core,  enchant.Scene
+ * An event which is occurring when a button is pressed.
+ * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.INPUT_START = 'inputstart';
 
 /**
- * Event occurring when a button input changes.
+ * An event which is occurring when a button input changes.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.INPUT_CHANGE = 'inputchange';
 
 /**
- * Event occurring when a button input ends.
+ * An event which is occurring when a button input ends.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.INPUT_END = 'inputend';
 
 /**
- * Event occurring when the left button is pushed.
+ * An event which is occurring when the left button is pressed.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.LEFT_BUTTON_DOWN = 'leftbuttondown';
 
 /**
- * Event occurring when the left button is released.
+ * An event which is occurring when the left button is released.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.LEFT_BUTTON_UP = 'leftbuttonup';
 
 /**
- * Event occurring when the right button is pushed.
+ * An event which is occurring when the right button is pressed.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.RIGHT_BUTTON_DOWN = 'rightbuttondown';
 
 /**
- * Event occurring when the right button is released.
+ * An event which is occurring when the right button is released.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.RIGHT_BUTTON_UP = 'rightbuttonup';
 
 /**
- * Even occurring when the up button is pushed.
+ * An event which is occurring when the up button is pressed.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.UP_BUTTON_DOWN = 'upbuttondown';
 
 /**
- * Event occurring when the up button is released.
+ * An event which is occurring when the up button is released.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.UP_BUTTON_UP = 'upbuttonup';
 
 /**
- * Event occurring when the down button is pushed.
- * Issued object: enchant.Core, enchant.Scene
+ * An event which is occurring when the down button is pressed.
+ * Issued object: enchant.Core,  enhant.Scene
  * @type {String}
  */
 enchant.Event.DOWN_BUTTON_DOWN = 'downbuttondown';
 
 /**
- * Event occurring when the down button is released.
- * Issued object: enchant.Game, enchant.Scene
+ * An event which is occurring when the down button is released.
+ * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.DOWN_BUTTON_UP = 'downbuttonup';
 
 /**
- * Event occurring when the a button is pushed.
- * Issued object: enchant.Core, enchant.Scene
+ * An event which is occurring when the a button is pressed.
+ * Issued object: enchant.Game, enchant.Scene
  * @type {String}
  */
 enchant.Event.A_BUTTON_DOWN = 'abuttondown';
 
 /**
- * Event occurring when the a button is released.
+ * An event which is occurring when the a button is released.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.A_BUTTON_UP = 'abuttonup';
 
 /**
- * Event occurring when the b button is pushed.
+ * An event which is occurring when the b button is pressed.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
 enchant.Event.B_BUTTON_DOWN = 'bbuttondown';
 
 /**
- * Event occurring when the b button is released.
+ * An event which is occurring when the b button is released.
  * Issued object: enchant.Core, enchant.Scene
  * @type {String}
  */
@@ -1386,8 +1386,8 @@ enchant.EventTarget = enchant.Class.create({
  * enchant.Core is moved to enchant.Core from v0.6
  * @type {*}
  */
-enchant.Game = enchant.Core;
 
+enchant.Game = enchant.Core;
 /**
  * @scope enchant.Node.prototype
  */
@@ -1791,7 +1791,9 @@ enchant.Sprite = enchant.Class.create(enchant.Entity, {
      * @example
      *   var bear = new Sprite(32, 32);
      *   bear.image = core.assets['chara1.gif'];
-     *   
+     *
+     * @param {Number} [width] Sprite width.g
+     * @param {Number} [height] Sprite height.
      * @constructs
      * @extends enchant.Entity
      */
