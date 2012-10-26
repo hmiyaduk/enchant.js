@@ -179,6 +179,10 @@
             var game = enchant.Game.instance;
             game.removeEventListener('exitframe', this._onexitframe);
         },
+        _determineEventTarget: function(e) {
+            // TODO calc position offset
+            return this._getEntityByPosition(e.x, e.y);
+        },
         _getEntityByPosition: function(x, y) {
             var ctx = this._dctx;
             ctx.clearRect(0, 0, this.width, this.height);
