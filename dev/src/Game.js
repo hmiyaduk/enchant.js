@@ -407,9 +407,11 @@
                     var game = enchant.Game.instance;
                     var currentScene = game.currentScene;
                     var layer, target;
+                    var evt = new enchant.Event(enchant.Event.TOUCH_START);
+                    evt._initPosition(e.x, e.y);
                     for (var i = currentScene._layerPriority.length - 1; i >= 0; i--) {
                         layer = currentScene._layers[currentScene._layerPriority[i]];
-                        target = layer._determineEventTarget(e);
+                        target = layer._determineEventTarget(evt);
                         if (target) {
                             break;
                         }
@@ -418,8 +420,6 @@
                         target = currentScene;
                     }
                     game._touchEventTarget = target;
-                    var evt = new enchant.Event(enchant.Event.TOUCH_START);
-                    evt._initPosition(e.x, e.y);
                     target.dispatchEvent(evt);
                 };
                 var _ontouchmove = function(e) {
@@ -437,6 +437,7 @@
                         evt._initPosition(e.x, e.y);
                         game._touchEventTarget.dispatchEvent(evt);
                         game._touchEventTarget = null;
+                        game.currentScene._layers.Dom._touchEventTarget = null;
                     }
                 };
                 if (enchant.ENV.TOUCH_ENABLED) {
