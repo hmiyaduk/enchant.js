@@ -11,7 +11,7 @@ enchant.Event = enchant.Class.create({
      [lang:en]
      * A class for an independent implementation of events
      * similar to DOM Events.
-     * However, does not include phase concept.
+     * However, it does not include phase concept.
      * @param {String} type Event type.
      [/lang]
      [lang:de]
@@ -28,7 +28,7 @@ enchant.Event = enchant.Class.create({
          * イベントのタイプ.
          [/lang]
          [lang:en]
-         * Event type.
+         * The type of the event.
          [/lang]
          [lang:de]
          * Typ des Ereignis.
@@ -41,7 +41,7 @@ enchant.Event = enchant.Class.create({
          * イベントのターゲット.
          [/lang]
          [lang:en]
-         * Event target.
+         * The target of the event.
          [/lang]
          [lang:de]
          * Ziel des Ereignis.
@@ -54,7 +54,7 @@ enchant.Event = enchant.Class.create({
          * イベント発生位置のx座標.
          [/lang]
          [lang:en]
-         * Event occurrence's x coordinates.
+         * The x coordinate of the events occurrence.
          [/lang]
          [lang:de]
          * X Koordinate des Auftretens des Ereignis.
@@ -67,7 +67,7 @@ enchant.Event = enchant.Class.create({
          * イベント発生位置のy座標.
          [/lang]
          [lang:en]
-         * Event occurrence's y coordinates.
+         * The y coordinate of the events occurrence.
          [/lang]
          [lang:de]
          * Y Koordinate des Auftretens des Ereignis.
@@ -80,7 +80,7 @@ enchant.Event = enchant.Class.create({
          * イベントを発行したオブジェクトを基準とするイベント発生位置のx座標.
          [/lang]
          [lang:en]
-         * Event occurrence's local coordinate system's x coordinates.
+         * The event occurrences local coordinate systems x coordinates.
          [/lang]
          [lang:de]
          * X Koordinate des lokalen Koordinatensystems des Auftretens des Ereignis.
@@ -93,7 +93,7 @@ enchant.Event = enchant.Class.create({
          * イベントを発行したオブジェクトを基準とするイベント発生位置のy座標.
          [/lang]
          [lang:en]
-         * Event occurrence's local coordinate system's y coordinates.
+         * The event occurrences local coordinate systems y coordinates.
          [/lang]
          [lang:de]
          * Y Koordinate des lokalen Koordinatensystems des Auftretens des Ereignis.
@@ -254,7 +254,7 @@ enchant.Event.EXIT = 'exit';
  * 発行するオブジェクト: {@link enchant.Group}, {@link enchant.Scene}
  [/lang]
  [lang:en]
- * Event occurring when Child is added to Node.
+ * An event which is occurring when a Child is getting added to a Node.
  * Issued object: {@link enchant.Group}, {@link enchant.Scene}
  [/lang]
  [lang:de]
@@ -272,7 +272,7 @@ enchant.Event.CHILD_ADDED = 'childadded';
  * 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when the Node is added to Group.
+ * An event which is occurring when the Node is added to a Group.
  * Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
@@ -290,7 +290,7 @@ enchant.Event.ADDED = 'added';
  * 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when the Node is added to Scene.
+ * An event which is occurring when the Node is added to a Scene.
  * Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
@@ -309,7 +309,7 @@ enchant.Event.ADDED_TO_SCENE = 'addedtoscene';
  * @type {String}
  [/lang]
  [lang:en]
- * Event occurring when Child is removed from Node.
+ * An event which is occurring when a Child is removed from a Node.
  * Issued object: {@link enchant.Group}, {@link enchant.Scene}
  * @type {String}
  [/lang]
@@ -328,7 +328,7 @@ enchant.Event.CHILD_REMOVED = 'childremoved';
  * 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when the Node is deleted from Group.
+ * An event which is occurring when the Node is deleted from a Group.
  * Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
@@ -346,7 +346,7 @@ enchant.Event.REMOVED = 'removed';
  * 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when Node is deleted from Scene.
+ * An event which is occurring when the Node is deleted from a Scene.
  * Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
@@ -364,8 +364,8 @@ enchant.Event.REMOVED_FROM_SCENE = 'removedfromscene';
  * クリックもタッチとして扱われる. 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when touch corresponding to Node has begun.
- * Click is also treated as touch. Issued object: {@link enchant.Node}
+ * An event occurring when a touch related to the Node has begun.
+ * A click is also treated as touch. Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
  * Ereignis, welchses auftritt wenn ein Touch auf einen Node
@@ -382,8 +382,8 @@ enchant.Event.TOUCH_START = 'touchstart';
  * クリックもタッチとして扱われる. 発行するオブジェクト: {@link enchant.Node}
  [/lang]
  [lang:en]
- * Event occurring when touch corresponding to Node has been moved.
- * Click is also treated as touch. Issued object: {@link enchant.Node}
+ * An event occurring when a touch related to the Node has been moved.
+ * A click is also treated as touch. Issued object: {@link enchant.Node}
  [/lang]
  [lang:de]
  * Ereignis, welchses auftritt wenn ein Touch auf einen Node
@@ -400,8 +400,8 @@ enchant.Event.TOUCH_MOVE = 'touchmove';
  * クリックもタッチとして扱われる. 発行するオブジェクト: enchant.Node
  [/lang]
  [lang:en]
- * Event occurring when touch corresponding to touch has ended.
- * Click is also treated as touch. Issued object: enchant.Node
+ * An event which is occurring when a touch related to the Node has ended.
+ * A Click is also treated as touch. Issued object: enchant.Node
  [/lang]
  [lang:de]
  * Ereignis, welchses auftritt wenn ein Touch auf einen Node
@@ -418,7 +418,7 @@ enchant.Event.TOUCH_END = 'touchend';
  * 発行するオブジェクト: {@link enchant.Entity}
  [/lang]
  [lang:en]
- * Event occurring when an Entity is rendered.
+ * An event which is occurring when an Entity is rendered.
  * Issued object: {@link enchant.Entity}
  [/lang]
  [lang:de]
