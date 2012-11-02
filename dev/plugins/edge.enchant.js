@@ -145,7 +145,7 @@ if (enchant != undefined) {
             },
             _toEntity: function() {
                 var surface = this.createSurface();
-                var sprite = new enchant.edge.Sprite(surface, this.width, this.height, this.fillColor);
+                var sprite = new enchant.edge.EdgeSprite(surface, this.width, this.height, this.fillColor);
                 sprite.moveTo(this.x, this.y);
                 return sprite;
             }
@@ -166,7 +166,7 @@ if (enchant != undefined) {
                 this.fontColor = fontSettings[2];
             },
             _toEntity: function() {
-                var label = new enchant.edge.Label(this.text);
+                var label = new enchant.edge.EdgeLabel(this.text);
                 label.color = this.fontColor;
                 label.textAlign = this.align;
                 label.fontSize = this.fontSize;
@@ -234,7 +234,7 @@ if (enchant != undefined) {
                 var currentParent = this._addChild(currentObject, parent);
                 if (currentObject.c) {
                     for (var key2 in currentObject.c) {
-                        if (currentObject.hasOwnProperty(key2)) {
+                        if (currentObject.c.hasOwnProperty(key2)) {
                             this._processDomElement(currentObject.c[key2], currentParent);
                         }
                     }
@@ -1849,9 +1849,9 @@ if (enchant != undefined) {
         };
 
         /**
-         * @scope enchant.edge.Label.prototype
+         * @scope enchant.edge.EdgeLabel.prototype
          */
-        enchant.edge.Label = enchant.Class.create(enchant.edge.EdgeEntity, {
+        enchant.edge.EdgeLabel = enchant.Class.create(enchant.edge.EdgeEntity, {
             /**
              [lang:ja]
              * テキストを表示する新たなlabelを作成する.
@@ -1939,9 +1939,9 @@ if (enchant != undefined) {
         });
 
         /**
-         * @scope enchant.edge.Sprite.prototype
+         * @scope enchant.edge.EdgeSprite.prototype
          */
-        enchant.edge.Sprite = enchant.Class.create(enchant.edge.EdgeEntity, {
+        enchant.edge.EdgeSprite = enchant.Class.create(enchant.edge.EdgeEntity, {
             /**
              [lang:ja]
              * 新たなスプライトを作成する.
@@ -1988,11 +1988,11 @@ if (enchant != undefined) {
         enchant.edge.Symbol = enchant.Class.create(enchant.EventTarget, {
             /**
              [lang:ja]
-             * Edgeアニメーションで定義されるシンボルのクラス.
+             * 新たなSymbolを作成する.
              * このクラスのインスタンスは new で生成せず、
              * かわりに enchant.edge.Compositions.instance.createSymbolInstance を利用してください.
              * (see {@link enchant.edge.Compositions#createSymbolInstance}).
-             *
+             * @class Edgeアニメーションで定義されるシンボルのクラス.
              * enchant.jsや、edgeアニメーションのアクション定義のコールバックメソッドと、相互作用のためのメソッドを持ちます。
              * 合成ののシンボルはedgeアニメーションに合成オブジェクト
              *
@@ -2010,7 +2010,7 @@ if (enchant != undefined) {
              * Creates a new Symbol - this method should not be called directly by the user.
              * Use enchant.edge.Compositions.instance.createSymbolInstance instead
              * (see {@link enchant.edge.Compositions#createSymbolInstance}).
-             * This class represents a symbol as it is defined in an edge animation.
+             * @class This class represents a symbol as it is defined in an edge animation.
              * It provides methods for interacting either with enchant.js code or with callbacks in the edge animation action definition.
              * The root symbol of a composition acts as the composition object of edge.
              * @param {enchant.edge.EdgeGroup} groupedSprites The content of the symbol grouped as nested {@link enchant.edge.EdgeGroup}s.
@@ -2045,12 +2045,12 @@ if (enchant != undefined) {
              [lang:ja]
              * シンボルと子シンボルの中で子スプライトを探すメソッド.
              * @param {String} name スプライト名（Edge Animateで定義されたエレメント名）.
-             * @returns {enchant.edge.Sprite}　名前に合うスプライト、あるいは見つけれない場合、null.
+             * @returns {enchant.edge.EdgeSprite}　名前に合うスプライト、あるいは見つけれない場合、null.
              [/lang]
              [lang:en]
              * Method which will search for a child sprite within the direct child sprites of this symbol and sprites of child symbols.
              * @param {String} name The name of the sprite (the element name as defined in Edge Animate)
-             * @returns {enchant.edge.Sprite} A sprite which corresponds to the given name or null if nothing could be found.
+             * @returns {enchant.edge.EdgeSprite} A sprite which corresponds to the given name or null if nothing could be found.
              [/lang]
              */
             getSprite: function(name) {
@@ -2113,7 +2113,7 @@ if (enchant != undefined) {
             },
             /**
              [lang:ja]
-             * シンボルを.倍率方法はシンボルの第一レベルのコンテナを倍率する.
+             * シンボルを倍率する.倍率方法はシンボルの第一レベルのコンテナを倍率する.
              * 第一レベルコンテナはedgeアニメーションから変換されない.
              [/lang]
              [lang:en]
@@ -2466,7 +2466,7 @@ if (enchant != undefined) {
             },
             /**
              [lang:ja]
-             * 合成の中の、シンボル名に合うすべてのシンボルを返す。Edge Animateで定義されるgetSymbolメソッド.
+             * 合成の中の、シンボル名に合うシンボルを返す。Edge Animateで定義されるgetSymbolメソッド.
              * @param {String} symbolName シンボル名.
              * @return {enchant.edge.Symbol} 名に合うシンボル.
              [/lang]
@@ -2542,10 +2542,21 @@ if (enchant != undefined) {
              [/lang]
              */
             deleteSymbol: function() {
-                if (this.groupedSprites.edgeGroup && this.groupedSprites.edgeGroup.edgeGroup) {
-                    this.groupedSprites.edgeGroup.edgeGroup.removeChild(this.groupedSprites.edgeGroup);
-                    enchant.edge.Compositions.instance.deleteSymbolInstance(this);
-                }
+            	if(this.groupedSprites.edgeGroup || this.groupedSprites.parentNode) {
+					var parent = null;
+					if(this.groupedSprites.edgeGroup) {
+						parent = this.groupedSprites.edgeGroup.edgeGroup;
+					}
+					if(parent) {
+						parent.removeChild(this.groupedSprites.edgeGroup);
+					} else {
+						this.groupedSprites._element.parentNode.removeChild(this.groupedSprites._element);
+						if(this.groupedSprites.parentNode) {
+							this.groupedSprites.parentNode.removeChild(this.groupedSprites);
+						}
+					}
+					enchant.edge.Compositions.instance.deleteSymbolInstance(this);
+				}
             },
             /**
              [lang:ja]
@@ -2854,7 +2865,7 @@ if (enchant != undefined) {
              * @param {String} symbolName シンボル名.
              * @param {String} instanceName シンボルのインスタンス名.
              * @returns {enchant.edge.EdgeEntity} 名前が一致した EdgeEntity
-             * （例えば、{@link enchant.edge.Sprite}, {@link enchant.edge.Label}）あるいは見つけれない場合、null.
+             * （例えば、{@link enchant.edge.EdgeSprite}, {@link enchant.edge.EdgeLabel}）あるいは見つけれない場合、null.
              [/lang]
              [lang:en]
              * Method which will return a sprite with a matching name (not including child symbol sprites).
@@ -2863,7 +2874,7 @@ if (enchant != undefined) {
              * @param {String} symbolName The name of the symbol.
              * @param {String} instanceName The name of the symbol instance.
              * @return {enchant.edge.EdgeEntity} An EdgeEntity
-             * (e.g. {@link enchant.edge.Sprite}, {@link enchant.edge.Label}) which matches the name or null if nothing was found.
+             * (e.g. {@link enchant.edge.EdgeSprite}, {@link enchant.edge.EdgeLabel}) which matches the name or null if nothing was found.
              [/lang]
              */
             getSprite: function(name, compId, symbolName, instanceName) {

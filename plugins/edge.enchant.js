@@ -129,7 +129,7 @@ if (enchant != undefined) {
             },
             _toEntity: function() {
                 var surface = this.createSurface();
-                var sprite = new enchant.edge.Sprite(surface, this.width, this.height, this.fillColor);
+                var sprite = new enchant.edge.EdgeSprite(surface, this.width, this.height, this.fillColor);
                 sprite.moveTo(this.x, this.y);
                 return sprite;
             }
@@ -150,7 +150,7 @@ if (enchant != undefined) {
                 this.fontColor = fontSettings[2];
             },
             _toEntity: function() {
-                var label = new enchant.edge.Label(this.text);
+                var label = new enchant.edge.EdgeLabel(this.text);
                 label.color = this.fontColor;
                 label.textAlign = this.align;
                 label.fontSize = this.fontSize;
@@ -218,7 +218,7 @@ if (enchant != undefined) {
                 var currentParent = this._addChild(currentObject, parent);
                 if (currentObject.c) {
                     for (var key2 in currentObject.c) {
-                        if (currentObject.hasOwnProperty(key2)) {
+                        if (currentObject.c.hasOwnProperty(key2)) {
                             this._processDomElement(currentObject.c[key2], currentParent);
                         }
                     }
@@ -1662,9 +1662,9 @@ if (enchant != undefined) {
         };
 
         /**
-         * @scope enchant.edge.Label.prototype
+         * @scope enchant.edge.EdgeLabel.prototype
          */
-        enchant.edge.Label = enchant.Class.create(enchant.edge.EdgeEntity, {
+        enchant.edge.EdgeLabel = enchant.Class.create(enchant.edge.EdgeEntity, {
             /**
              * Creates a new label used to display text.
              * @class A class which extends {@link enchant.edge.EdgeEntity} to display text by using methods defined in {@link enchant.Label}.
@@ -1735,9 +1735,9 @@ if (enchant != undefined) {
         });
 
         /**
-         * @scope enchant.edge.Sprite.prototype
+         * @scope enchant.edge.EdgeSprite.prototype
          */
-        enchant.edge.Sprite = enchant.Class.create(enchant.edge.EdgeEntity, {
+        enchant.edge.EdgeSprite = enchant.Class.create(enchant.edge.EdgeEntity, {
             /**
              * Creates a new sprite.
              * @class A class which extends {@link enchant.edge.EdgeEntity} to display {@link enchant.Surface}
@@ -1775,7 +1775,7 @@ if (enchant != undefined) {
              * Creates a new Symbol - this method should not be called directly by the user.
              * Use enchant.edge.Compositions.instance.createSymbolInstance instead
              * (see {@link enchant.edge.Compositions#createSymbolInstance}).
-             * This class represents a symbol as it is defined in an edge animation.
+             * @class This class represents a symbol as it is defined in an edge animation.
              * It provides methods for interacting either with enchant.js code or with callbacks in the edge animation action definition.
              * The root symbol of a composition acts as the composition object of edge.
              * @param {enchant.edge.EdgeGroup} groupedSprites The content of the symbol grouped as nested {@link enchant.edge.EdgeGroup}s.
@@ -1808,7 +1808,7 @@ if (enchant != undefined) {
             /**
              * Method which will search for a child sprite within the direct child sprites of this symbol and sprites of child symbols.
              * @param {String} name The name of the sprite (the element name as defined in Edge Animate)
-             * @returns {enchant.edge.Sprite} A sprite which corresponds to the given name or null if nothing could be found.
+             * @returns {enchant.edge.EdgeSprite} A sprite which corresponds to the given name or null if nothing could be found.
              */
             getSprite: function(name) {
                 return this._findChildSprite(name);
@@ -2130,10 +2130,21 @@ if (enchant != undefined) {
              * The deleteSymbol method as defined by Edge Animate, which will delete this.
              */
             deleteSymbol: function() {
-                if (this.groupedSprites.edgeGroup && this.groupedSprites.edgeGroup.edgeGroup) {
-                    this.groupedSprites.edgeGroup.edgeGroup.removeChild(this.groupedSprites.edgeGroup);
-                    enchant.edge.Compositions.instance.deleteSymbolInstance(this);
-                }
+            	if(this.groupedSprites.edgeGroup || this.groupedSprites.parentNode) {
+					var parent = null;
+					if(this.groupedSprites.edgeGroup) {
+						parent = this.groupedSprites.edgeGroup.edgeGroup;
+					}
+					if(parent) {
+						parent.removeChild(this.groupedSprites.edgeGroup);
+					} else {
+						this.groupedSprites._element.parentNode.removeChild(this.groupedSprites._element);
+						if(this.groupedSprites.parentNode) {
+							this.groupedSprites.parentNode.removeChild(this.groupedSprites);
+						}
+					}
+					enchant.edge.Compositions.instance.deleteSymbolInstance(this);
+				}
             },
             /**
              * The getLabelPosition method as defined by Edge Animate,
@@ -2318,7 +2329,7 @@ if (enchant != undefined) {
              * @param {String} symbolName The name of the symbol.
              * @param {String} instanceName The name of the symbol instance.
              * @return {enchant.edge.EdgeEntity} An EdgeEntity
-             * (e.g. {@link enchant.edge.Sprite}, {@link enchant.edge.Label}) which matches the name or null if nothing was found.
+             * (e.g. {@link enchant.edge.EdgeSprite}, {@link enchant.edge.EdgeLabel}) which matches the name or null if nothing was found.
              */
             getSprite: function(name, compId, symbolName, instanceName) {
                 name = Content.createElementIdentifier(name);
