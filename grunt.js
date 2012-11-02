@@ -61,6 +61,7 @@ module.exports = function(grunt) {
                         'dev/src/Env.js',
                         'dev/src/Event.js',
                         'dev/src/EventTarget.js',
+
                         'dev/src/Game.js',
                         'dev/src/Node.js',
                         'dev/src/Entity.js',
@@ -72,7 +73,15 @@ module.exports = function(grunt) {
                         'dev/src/CanvasScene.js',
                         'dev/src/Scene.js',
                         'dev/src/Surface.js',
-                        'dev/src/Sound.js'
+                        'dev/src/Sound.js',
+
+                        // animation
+                        'dev/src/ActionEventTarget.js',
+                        'dev/src/Action.js',
+                        'dev/src/ParallelActon.js',
+                        'dev/src/Tween.js',
+                        'dev/src/Timeline.js',
+                        'dev/src/Easing.js'
                     ],
                     dest: 'dev/enchant.js'
                 }
