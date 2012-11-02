@@ -681,7 +681,7 @@ enchant.gl = {};
          */
         slerp: function(another, ratio) {
             var q = new enchant.gl.Quat(0, 0, 0, 0);
-            quat4.slerp(this._quat, another._quat, ratio, q);
+            quat4.slerp(this._quat, another._quat, ratio, q._quat);
             return q;
         },
         /**
@@ -1527,7 +1527,7 @@ enchant.gl = {};
             this.globalZ = this._global[2];
         },
 
-        _render: function() {
+        _render: function(detectTouch) {
             var useTexture = this.mesh.texture._image ? 1.0 : 0.0;
 
             mat4.toInverseMat3(this.tmpMat, this._normMat);
@@ -1557,13 +1557,13 @@ enchant.gl = {};
             enchant.Core.instance.GL.renderElements(this.mesh._indices, 0, length, attributes, uniforms);
         },
 
-        _draw: function(scene, hoge, baseMatrix) {
+        _draw: function(scene, detectTouch, baseMatrix) {
 
             this._transform(baseMatrix);
 
             if (this.childNodes.length) {
                 for (var i = 0, l = this.childNodes.length; i < l; i++) {
-                    this.childNodes[i]._draw(scene, hoge, this.tmpMat);
+                    this.childNodes[i]._draw(scene, detectTouch, this.tmpMat);
                 }
             }
 
@@ -1571,11 +1571,11 @@ enchant.gl = {};
 
             if (this.mesh !== null) {
                 if (this.program !== null) {
-                    enchant.Core.instance.GL.setProgram(this.program);
-                    this._render();
-                    enchant.Core.instance.GL.setDefaultProgram();
+                    enchant.Game.instance.GL.setProgram(this.program);
+                    this._render(detectTouch);
+                    enchant.Game.instance.GL.setDefaultProgram();
                 } else {
-                    this._render();
+                    this._render(detectTouch);
                 }
             }
 
