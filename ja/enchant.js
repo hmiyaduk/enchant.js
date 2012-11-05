@@ -1374,6 +1374,10 @@ enchant.EventTarget = enchant.Class.create({
      * @static
      */
     enchant.Core.instance = null;
+
+    enchant.Core._inherited = function(subclass) {
+        enchant.Game = subclass;
+    };
 }());
 
 /**
