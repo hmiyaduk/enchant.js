@@ -98,7 +98,7 @@ enchant.Node = enchant.Class.create(enchant.EventTarget, {
     moveTo: function(x, y) {
         this._x = x;
         this._y = y;
-        this._updateCoordinate();
+        this._dirty = true;
     },
     /**
      [lang:ja]
@@ -115,7 +115,7 @@ enchant.Node = enchant.Class.create(enchant.EventTarget, {
     moveBy: function(x, y) {
         this._x += x;
         this._y += y;
-        this._updateCoordinate();
+        this._dirty = true;
     },
     /**
      [lang:ja]
@@ -133,7 +133,7 @@ enchant.Node = enchant.Class.create(enchant.EventTarget, {
         },
         set: function(x) {
             this._x = x;
-            this._updateCoordinate();
+            this._dirty = true;
         }
     },
     /**
@@ -152,18 +152,14 @@ enchant.Node = enchant.Class.create(enchant.EventTarget, {
         },
         set: function(y) {
             this._y = y;
-            this._updateCoordinate();
+            this._dirty = true;
         }
     },
+    /**
+     * deprecated from v0.6.0
+     * @deprecated
+     */
     _updateCoordinate: function() {
-        if (this.parentNode) {
-            this._offsetX = this.parentNode._offsetX + this._x;
-            this._offsetY = this.parentNode._offsetY + this._y;
-        } else {
-            this._offsetX = this._x;
-            this._offsetY = this._y;
-        }
-        this._dirty = true;
     },
     remove: function() {
         if (this._listener) {
