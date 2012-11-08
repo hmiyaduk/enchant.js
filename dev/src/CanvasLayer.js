@@ -96,7 +96,7 @@ enchant.CanvasLayer = enchant.Class.create(enchant.Group, {
             game._listeners['exitframe'] = [];
         }
         game._listeners['exitframe'].push(this._onexitframe);
-
+        this._onexitframe();
     },
     /**
      * レンダリングを停止.
@@ -105,6 +105,7 @@ enchant.CanvasLayer = enchant.Class.create(enchant.Group, {
     _stopRendering: function() {
         var game = enchant.Game.instance;
         game.removeEventListener('exitframe', this._onexitframe);
+        this._onexitframe();
     },
     _rendering:  function(node) {
         var game = enchant.Game.instance;
